@@ -1,0 +1,101 @@
+Smart Parking System Interaction Table
+Feature / Module	    Super Admin                                     Admin (Parking Staff)	                User
+
+Authentication	        Login as Super Admin	                        Login as Admin	                        Register & Login
+Parking Management	    Create / Update / Delete parking locations	    View assigned parking	                View parking list
+Slot Management	        Create and manage slots for parking areas	    Monitor slot status	                    Select available slot
+User Management	        View users, manage accounts	                    View booking users	                    Create account & manage profile
+Parking Search	        View parking statistics	                        View parking details	                Search parking by location
+Slot Selection	        View slot configuration	                        Monitor slot occupancy	                Choose parking slot
+Booking Creation	    View all bookings	                            View bookings for their parking	        Create booking
+Payment System	        View payment reports	                        Verify payment status	                Pay for parking
+QR Code Generation	    Monitor QR system	                            Scan QR for entry & exit	            Show QR at parking gate
+Parking Entry	        Monitor system logs	                            Scan QR and allow entry	                Show QR for entry
+Parking Exit	        Monitor parking activity	                    Scan QR and calculate time	            Show QR for exit
+Overstay Handling	    Configure pricing rules	                        Collect extra charge	                Pay extra charge if overtime
+Wallet / Transactions	View revenue and reports	                    View transactions for parking	        Manage wallet balance
+Notifications	        Send system announcements	                    Receive system alerts	                Receive parking alerts
+Support System	        Monitor support tickets	                        Respond to tickets	                    Raise support requests
+Dashboard	            System analytics & reports	                    Parking activity dashboard	            Personal activity dashboard
+Reports & Analytics	    Revenue reports, booking analytics	            Parking usage reports	                View personal booking history
+
+Role Responsibilities Summary
+Super Admin
+
+Controls the entire system.
+
+Main responsibilities:
+
+Manage parking locations
+
+Manage slots
+
+Manage admins
+
+View system reports
+
+Configure pricing rules
+
+Monitor system activity
+
+Admin (Parking Staff)
+
+Works at parking locations.
+
+Responsibilities:
+
+Monitor slots
+
+View bookings
+
+Scan QR at entry
+
+Scan QR at exit
+
+Calculate parking duration
+
+Handle extra charges
+
+User
+
+Uses the system to book parking.
+
+Responsibilities:
+
+Search parking
+
+Select slot
+
+Book parking
+
+Make payment
+
+Show QR at entry
+
+Show QR at exit
+
+View booking history
+
+Example Parking Workflow Interaction
+Step	                User	        Admin	        Super Admin
+
+Search parking           ✔	            —	            —
+Select slot	             ✔	            —	            —
+Create booking	         ✔	            —	            —
+Payment	                 ✔	            —	            —
+QR generated	         ✔	            —	            —
+Entry verification	    Show QR	        Scan QR	        Monitor logs
+Parking session	        Park vehicle	Monitor slots	View activity
+Exit verification	    Show QR	        Scan QR	        View reports
+Extra charge	        Pay if needed	Collect charge	Configure rules
+
+
+
+
+{
+  "Registered Name": "Razorpay Payments Private Limited",
+  "CIN": "U62099KA2024PTC188982",
+  "PAN": "AANCR6717K",
+  "TAN": "BLRR30567F",
+  "GST": "29AANCR6717K1ZN"
+}
