@@ -49,6 +49,7 @@ app.use("/api/auth", authRoutes);
 // User Routes
 app.use("/api", userParkingRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/profile", profileRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
