@@ -1,23 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import AdminLayout from "../../admin-panel/Layout/AdminLayout";
-import Dashboard from "../../admin-panel/Dashboard/Pages/Dashboard";
+import AdminLayout from "../../Super-Admin-Panel/Layout/AdminLayout";
+import Dashboard from "../../Super-Admin-Panel/Dashboard/Pages/Dashboard";
 
 // Parking Module
-import ParkingList from "../../admin-panel/Parking-Management/Pages/ParkingList";
-import AddParking from "../../admin-panel/Parking-Management/Pages/AddParking";
-import EditParking from "../../admin-panel/Parking-Management/Pages/EditParking";
-import ParkingDetails from "../../admin-panel/Parking-Management/Pages/ParkingDetails";
+import ParkingList from "../../Super-Admin-Panel/Parking-Management/Pages/ParkingList";
+import AddParking from "../../Super-Admin-Panel/Parking-Management/Pages/AddParking";
+import EditParking from "../../Super-Admin-Panel/Parking-Management/Pages/EditParking";
+import ParkingDetails from "../../Super-Admin-Panel/Parking-Management/Pages/ParkingDetails";
 
 // Slot Management
-import SlotList from "../../admin-panel/Slot-Management/Pages/SlotList";
+import SlotList from "../../Super-Admin-Panel/Slot-Management/Pages/SlotList";
 
 // Booking Management
-import BookingList from "../../admin-panel/Booking-Management/Pages/BookingList";
-import BookingDetails from "../../admin-panel/Booking-Management/Pages/BookingDetails";
+import BookingList from "../../Super-Admin-Panel/Booking-Management/Pages/BookingList";
+import BookingDetails from "../../Super-Admin-Panel/Booking-Management/Pages/BookingDetails";
 
 // User Management
-import UserList from "../../admin-panel/User-Management/Pages/UserList";
-import UserDetails from "../../admin-panel/User-Management/Pages/UserDetails";
+import UserList from "../../Super-Admin-Panel/User-Management/Pages/UserList";
+import UserDetails from "../../Super-Admin-Panel/User-Management/Pages/UserDetails";
 
 const AdminRoutes = () => {
   return (

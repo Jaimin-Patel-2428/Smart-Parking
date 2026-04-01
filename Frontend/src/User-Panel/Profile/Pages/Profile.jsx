@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import useProfile from "../Hooks/useProfile";
 import { useAuth } from "../../../Authentication-UI/Context/AuthContext";
@@ -89,13 +89,28 @@ const Profile = () => {
 
   const [activeTab, setActiveTab] = useState("details");
   const [editingProfile, setEditingProfile] = useState(false);
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState({
+    fullName: profile?.fullName || '',
+    mobile: profile?.mobile || '',
+    address: profile?.address || ''
+  });
   const [newVehicle, setNewVehicle] = useState({
     vehicleType: "4wheel",
     vehicleNumber: "",
     color: "",
     model: "",
   });
+
+  // Update editData when profile loads
+  useEffect(() => {
+    if (profile) {
+      setEditData({
+        fullName: profile.fullName || '',
+        mobile: profile.mobile || '',
+        address: profile.address || ''
+      });
+    }
+  }, [profile]);
 
   const handleProfileEdit = async (e) => {
     e.preventDefault();
@@ -120,6 +135,18 @@ const Profile = () => {
         color: "",
         model: "",
       });
+      refreshProfile();
+    } else {
+      toast.error(result.error);
+    }
+  };
+
+  const handleDeleteVehicle = async (vehicleId) => {
+    if (!confirm("Are you sure you want to delete this vehicle?")) return;
+    
+    const result = await deleteVehicle(vehicleId);
+    if (result.success) {
+      toast.success("Asset Removed");
       refreshProfile();
     } else {
       toast.error(result.error);
@@ -222,7 +249,7 @@ const Profile = () => {
                         Full Name
                       </label>
                       <input
-                        defaultValue={profile?.fullName}
+                        value={editData.fullName}
                         onChange={(e) =>
                           setEditData({ ...editData, fullName: e.target.value })
                         }
@@ -234,7 +261,7 @@ const Profile = () => {
                         Mobile Access
                       </label>
                       <input
-                        defaultValue={profile?.mobile}
+                        value={editData.mobile}
                         onChange={(e) =>
                           setEditData({ ...editData, mobile: e.target.value })
                         }
@@ -252,6 +279,7 @@ const Profile = () => {
                         />
                         <input
                           placeholder="Link home/office address"
+                          value={editData.address}
                           onChange={(e) =>
                             setEditData({
                               ...editData,

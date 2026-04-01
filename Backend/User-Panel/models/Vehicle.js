@@ -40,7 +40,7 @@ const vehicleSchema = new mongoose.Schema({
 // Ensure only one primary vehicle per user
 vehicleSchema.pre("save", async function(next) {
   if (this.isPrimary && this.isModified("isPrimary")) {
-    await mongoose.model("Vehicle").updateMany(
+    await this.constructor.updateMany(
       { user: this.user, _id: { $ne: this._id } },
       { isPrimary: false }
     );
