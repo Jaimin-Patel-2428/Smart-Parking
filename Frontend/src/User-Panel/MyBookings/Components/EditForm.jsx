@@ -9,11 +9,13 @@ import {
   Timer,
 } from "lucide-react";
 import { format, differenceInHours } from "date-fns";
+import ConfirmDialog from "../../../app/Components/ConfirmDialog";
 
 const EditForm = ({ booking, onEdit, onCancel, onClose, disabled }) => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   useEffect(() => {
     if (booking) {
@@ -44,14 +46,13 @@ const EditForm = ({ booking, onEdit, onCancel, onClose, disabled }) => {
   };
 
   const handleCancelClick = () => {
-    if (
-      window.confirm(
-        "Are you sure? This will release your parking spot immediately.",
-      )
-    ) {
-      onCancel(booking._id);
-      onClose();
-    }
+    setShowCancelConfirm(true);
+  };
+
+  const confirmCancelBooking = () => {
+    onCancel(booking._id);
+    onClose();
+    setShowCancelConfirm(false);
   };
 
   return (
@@ -168,6 +169,16 @@ const EditForm = ({ booking, onEdit, onCancel, onClose, disabled }) => {
           </div>
         </div>
       </div>
+
+      <ConfirmDialog
+        open={showCancelConfirm}
+        title="Cancel Booking"
+        message="Are you sure? This will release your parking spot immediately."
+        confirmLabel="Cancel Booking"
+        intent="danger"
+        onConfirm={confirmCancelBooking}
+        onCancel={() => setShowCancelConfirm(false)}
+      />
     </div>
   );
 };

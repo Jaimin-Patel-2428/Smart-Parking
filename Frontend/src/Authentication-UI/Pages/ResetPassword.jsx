@@ -8,6 +8,7 @@ import {
   Loader2,
   ShieldCheck,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import authService from "../Services/authService";
 
 const ResetPassword = () => {
@@ -37,7 +38,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
@@ -45,10 +46,10 @@ const ResetPassword = () => {
     try {
       // Logic: Send email and new password to your backend
       await authService.resetPassword({ email, password: formData.password });
-      alert("Password reset successful! Please login.");
+      toast.success("Password reset successful! Please login.");
       navigate("/auth/login");
     } catch (err) {
-      alert(err.response?.data?.message || "Reset failed");
+      toast.error(err.response?.data?.message || "Reset failed");
     } finally {
       setLoading(false);
     }

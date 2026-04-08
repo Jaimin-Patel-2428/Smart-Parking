@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { Mail, Lock, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ const LoginForm = () => {
 
     // ✅ Basic validation
     if (!email || !password) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
@@ -23,7 +24,7 @@ const LoginForm = () => {
       await handleLogin({ email, password });
     } catch (err) {
       console.log(err.response?.data); // ✅ ADD THIS
-      alert(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }

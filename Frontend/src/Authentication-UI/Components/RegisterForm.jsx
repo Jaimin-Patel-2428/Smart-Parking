@@ -9,6 +9,7 @@ import {
   Loader2,
   ArrowRight,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import authService from "../Services/authService";
 
 const RegisterForm = () => {
@@ -33,9 +34,10 @@ const RegisterForm = () => {
       const response = await authService.register(formData);
       // Backend returns { message: "OTP sent to email" }
       // We navigate to verify page and pass the email via state
+      toast.success("OTP sent to your email");
       navigate("/auth/verify", { state: { email: formData.email } });
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      toast.error(err.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -55,7 +57,7 @@ const RegisterForm = () => {
             type="text"
             required
             onChange={handleChange}
-            className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/[0.02] py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
+            className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/2 py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
             placeholder="John Doe"
           />
         </div>
@@ -74,7 +76,7 @@ const RegisterForm = () => {
               type="email"
               required
               onChange={handleChange}
-              className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/[0.02] py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
+              className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/2 py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
               placeholder="john@example.com"
             />
           </div>
@@ -92,7 +94,7 @@ const RegisterForm = () => {
               type="tel"
               required
               onChange={handleChange}
-              className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/[0.02] py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
+              className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/2 py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
               placeholder="+1 234 567 890"
             />
           </div>
@@ -111,7 +113,7 @@ const RegisterForm = () => {
             type="text"
             required
             onChange={handleChange}
-            className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/[0.02] py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
+            className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/2 py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
             placeholder="ABC-1234"
           />
         </div>
@@ -129,7 +131,7 @@ const RegisterForm = () => {
             type="password"
             required
             onChange={handleChange}
-            className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/[0.02] py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
+            className="w-full rounded-xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/2 py-3 pl-10 pr-4 text-[#FAF3E1] focus:border-[#FA8112] focus:outline-none transition-all"
             placeholder="••••••••"
           />
         </div>

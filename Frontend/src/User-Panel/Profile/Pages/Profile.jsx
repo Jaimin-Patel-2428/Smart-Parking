@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import useProfile from "../Hooks/useProfile";
 import { useAuth } from "../../../Authentication-UI/Context/AuthContext";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
+import ConfirmDialog from "../../../app/Components/ConfirmDialog";
 import {
   Loader2,
   User,
@@ -89,6 +90,8 @@ const Profile = () => {
 
   const [activeTab, setActiveTab] = useState("details");
   const [editingProfile, setEditingProfile] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [vehicleToDelete, setVehicleToDelete] = useState(null);
   const [editData, setEditData] = useState({
     fullName: profile?.fullName || '',
     mobile: profile?.mobile || '',
@@ -142,8 +145,16 @@ const Profile = () => {
   };
 
   const handleDeleteVehicle = async (vehicleId) => {
-    if (!confirm("Are you sure you want to delete this vehicle?")) return;
-    
+    setVehicleToDelete(vehicleId);
+    setShowDeleteConfirm(true);
+  };
+
+  const confirmDeleteVehicle = async () => {
+    if (!vehicleToDelete) return;
+    const vehicleId = vehicleToDelete;
+    setShowDeleteConfirm(false);
+    setVehicleToDelete(null);
+
     const result = await deleteVehicle(vehicleId);
     if (result.success) {
       toast.success("Asset Removed");
@@ -462,6 +473,19 @@ const Profile = () => {
           </div>
         )}
       </div>
+
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        title="Delete Vehicle"
+        message="Are you sure you want to delete this vehicle? This action cannot be undone."
+        confirmLabel="Delete"
+        intent="danger"
+        onConfirm={confirmDeleteVehicle}
+        onCancel={() => {
+          setShowDeleteConfirm(false);
+          setVehicleToDelete(null);
+        }}
+      />
     </>
   );
 };

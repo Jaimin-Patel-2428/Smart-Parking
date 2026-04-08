@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import authService from "../Services/authService";
 
 const AuthContext = createContext();
@@ -58,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         navigate("/super-admin/dashboard");
     } catch (error) {
       console.error("Login Error:", error);
-      alert(error?.response?.data?.message || "Login Failed");
+      toast.error(error?.response?.data?.message || "Login Failed");
     }
   };
 

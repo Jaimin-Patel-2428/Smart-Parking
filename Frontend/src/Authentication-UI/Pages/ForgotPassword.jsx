@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Mail, ArrowLeft, Loader2, KeyRound } from "lucide-react";
+import toast from "react-hot-toast";
 import authService from "../Services/authService";
 
 const ForgotPassword = () => {
@@ -17,9 +18,10 @@ const ForgotPassword = () => {
 
       // Navigate to verify-otp page, but we pass a 'reset' flag
       // so the verify page knows to redirect to 'ResetPassword' instead of 'Login'
+      toast.success("Reset OTP sent to your email");
       navigate("/auth/verify", { state: { email, flow: "reset" } });
     } catch (err) {
-      alert(
+      toast.error(
         err.response?.data?.message ||
           "Something went wrong. Please try again.",
       );

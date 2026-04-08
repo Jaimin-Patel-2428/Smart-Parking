@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../../Authentication-UI/Context/AuthContext";
 import bookingService from "../Services/bookingService";
+import toast from "react-hot-toast";
 
 export const useMyBookings = () => {
   const { user, token, logout } = useAuth();
@@ -116,7 +117,7 @@ export const useMyBookings = () => {
   // Cancel booking
   const cancelBooking = async (bookingId) => {
     if (!userId || !isAuthenticated) {
-      alert("Please login to cancel booking");
+      toast.error("Please login to cancel booking");
       return;
     }
     
@@ -144,14 +145,14 @@ export const useMyBookings = () => {
       
       // Handle 401 Unauthorized - session expired
       if (err.response?.status === 401) {
-        alert("Session expired. Please login again.");
+        toast.error("Session expired. Please login again.");
         logout();
         return;
       }
-      
+
       // Other errors
       const errorMsg = err.response?.data?.message || "Failed to cancel booking";
-      alert(errorMsg);
+      toast.error(errorMsg);
       throw err;
     }
   };

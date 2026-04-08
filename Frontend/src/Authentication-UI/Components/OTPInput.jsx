@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import authService from "../Services/authService";
+import toast from "react-hot-toast";
 
 const OTPInput = ({ email, onVerified }) => {
   const [otp, setOtp] = useState("");
@@ -9,7 +10,7 @@ const OTPInput = ({ email, onVerified }) => {
       await authService.verifyOTP(email, otp);
       onVerified();
     } catch (err) {
-      alert("Invalid OTP");
+      toast.error(err.response?.data?.message || "Invalid OTP");
     }
   };
 

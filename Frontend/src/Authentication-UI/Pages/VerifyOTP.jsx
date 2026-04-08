@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ShieldCheck, RefreshCcw, ArrowLeft, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 import authService from "../Services/authService";
 
 const VerifyOTP = () => {
@@ -11,15 +12,16 @@ const VerifyOTP = () => {
   const [resending, setResending] = useState(false);
   const [timer, setTimer] = useState(30);
 
-  // Get email from navigation state (passed from RegisterForm)
+  // Get email and flow from navigation state
   const email = location.state?.email;
+  const flow = location.state?.flow || "register"; // default to register
 
-  // Security: If no email is found, redirect back to register
+  // Security: If no email is found, redirect back to register or login
   useEffect(() => {
     if (!email) {
-      navigate("/auth/register");
+      navigate(flow === "reset" ? "/auth/login" : "/auth/register");
     }
-  }, [email, navigate]);
+  }, [email, navigate, flow]);
 
   // Resend Timer logic
   useEffect(() => {
@@ -38,12 +40,15 @@ const VerifyOTP = () => {
 
     setLoading(true);
     try {
-      await authService.verifyOTP(email, otp);
-      // Backend returns { message: "Registration complete" }
-      alert("Account verified successfully!");
-      navigate("/auth/login");
+      await authService.verifyOTP(email, otp, flow);
+      if (flow === "reset") {
+        navigate("/auth/reset-password", { state: { email } });
+      } else {
+        toast.success("Account verified successfully!");
+        navigate("/auth/login");
+      }
     } catch (err) {
-      alert(err.response?.data?.message || "Invalid OTP");
+      toast.error(err.response?.data?.message || "Invalid OTP");
     } finally {
       setLoading(false);
     }
@@ -54,9 +59,9 @@ const VerifyOTP = () => {
     try {
       await authService.resendOTP(email);
       setTimer(60); // Reset timer to 60 seconds
-      alert("A new OTP has been sent to your email.");
+      toast.success("A new OTP has been sent to your email.");
     } catch (err) {
-      alert("Failed to resend OTP");
+      toast.error(err.response?.data?.message || "Failed to resend OTP");
     } finally {
       setResending(false);
     }
@@ -66,10 +71,10 @@ const VerifyOTP = () => {
     <div className="flex min-h-[80vh] flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <button
-          onClick={() => navigate("/auth/register")}
+          onClick={() => navigate(flow === "reset" ? "/auth/forgot-password" : "/auth/register")}
           className="mb-6 flex items-center gap-2 text-sm text-[#FAF3E1]/40 hover:text-[#FA8112] transition-colors"
         >
-          <ArrowLeft size={16} /> Back to Register
+          <ArrowLeft size={16} /> Back to {flow === "reset" ? "Forgot Password" : "Register"}
         </button>
 
         <div className="rounded-2xl border border-[#F5E7C6]/10 bg-[#FAF3E1]/[0.02] p-8 backdrop-blur-sm">
@@ -78,11 +83,19 @@ const VerifyOTP = () => {
               <ShieldCheck size={32} />
             </div>
             <h2 className="text-2xl font-bold text-[#FAF3E1]">
-              Check your email
+              {flow === "reset" ? "Verify Reset Code" : "Check your email"}
             </h2>
             <p className="mt-2 text-sm text-[#FAF3E1]/60">
-              We've sent a 6-digit verification code to <br />
-              <span className="font-semibold text-[#FAF3E1]">{email}</span>
+              {flow === "reset"
+                ? "Enter the 6-digit code sent to your email to reset your password."
+                : "We've sent a 6-digit verification code to"
+              }
+              {flow === "register" && (
+                <>
+                  <br />
+                  <span className="font-semibold text-[#FAF3E1]">{email}</span>
+                </>
+              )}
             </p>
           </div>
 
@@ -106,7 +119,7 @@ const VerifyOTP = () => {
               {loading ? (
                 <Loader2 className="animate-spin" />
               ) : (
-                "Verify Account"
+                flow === "reset" ? "Verify & Reset" : "Verify Account"
               )}
             </button>
           </form>
