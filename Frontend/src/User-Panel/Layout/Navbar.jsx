@@ -90,16 +90,20 @@ const Navbar = () => {
                   </p>
                 </div>
 
-                <NavLink 
-                  to="/user/profile" 
+                <NavLink
+                  to="/user/profile"
                   className="flex w-full items-center gap-3 px-4 py-2.5 text-sm font-medium text-[#FAF3E1]/60 hover:text-[#FA8112] hover:bg-[#FAF3E1]/5 rounded-xl transition-all"
                   onClick={() => setIsProfileOpen(false)}
                 >
                   <UserIcon size={18} /> My Profile
                 </NavLink>
-                <button className="flex w-full items-center gap-3 px-4 py-2.5 text-sm font-medium text-[#FAF3E1]/60 hover:text-[#FA8112] hover:bg-[#FAF3E1]/5 rounded-xl transition-all">
+                <NavLink
+                  to="/user/settings"
+                  onClick={() => setIsProfileOpen(false)}
+                  className="flex w-full items-center gap-3 px-4 py-2.5 text-sm font-medium text-[#FAF3E1]/60 hover:text-[#FA8112] hover:bg-[#FAF3E1]/5 rounded-xl transition-all"
+                >
                   <Settings size={18} /> Settings
-                </button>
+                </NavLink>
 
                 <div className="h-px bg-[#F5E7C6]/5 my-2" />
 
