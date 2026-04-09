@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   MapPin,
   Hash,
-  DollarSign,
+  IndianRupee,
   Clock,
   ShieldCheck,
 } from "lucide-react";
@@ -39,7 +39,7 @@ const BookingCard = ({
           {isCurrent ? "● Active Session" : "● Scheduled"}
         </div>
         <div className="flex items-center gap-1 bg-[#FAF3E1]/5 px-3 py-1 rounded-lg">
-          <DollarSign size={12} className="text-[#FA8112]" />
+          <IndianRupee size={12} className="text-[#FA8112]" />
           <span className="text-sm font-black text-[#FAF3E1] italic">
             ₹{Number(booking.totalAmount).toFixed(2)}
           </span>
